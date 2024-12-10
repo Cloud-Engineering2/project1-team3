@@ -30,6 +30,8 @@ public class Post extends AuditingFields {
 	
 	private String content;
 	
+	private String summary;
+	
 	private Category category;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
