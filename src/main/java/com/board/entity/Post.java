@@ -1,5 +1,8 @@
 package com.board.entity;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import com.board.constant.Category;
 
 import jakarta.persistence.CascadeType;
@@ -32,7 +35,11 @@ public class Post extends AuditingFields {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "uid")
 	private User user;
-	
+
+    @ToString.Exclude
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private final Set<Comment> postComments = new LinkedHashSet<>();
+    
 	protected Post() {}
 	
     private Post(String title, String content, Category category, User user) {
