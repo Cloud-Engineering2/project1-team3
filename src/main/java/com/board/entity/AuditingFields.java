@@ -23,7 +23,7 @@ public class AuditingFields {
     
     @CreatedBy
     @Column(nullable = false, updatable = false, length = 20)
-    protected String createdBy;
+    protected String createdBy = "system";	// 기본값 설정
     
     @LastModifiedDate
     @Column(name = "updated_at")
@@ -31,5 +31,5 @@ public class AuditingFields {
     
     @LastModifiedBy
     @Column(nullable = false, updatable = false, length = 20)
-    protected String updatedBy;
+    protected String updatedBy = "system";	// 기본값 설정
 }
