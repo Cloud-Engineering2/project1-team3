@@ -19,7 +19,7 @@ public class CommentService {
     private final PostRepository postRepository;
 
     // 댓글 작성
-    public void registerComment(Long postId, String userId, String content) {
+    public void registerComment(Long postId, Long userId, String content) {
     	
     	// 작성자 조회
         User user = userRepository.getReferenceById(userId);
