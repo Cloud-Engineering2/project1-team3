@@ -8,4 +8,5 @@ import com.board.entity.Comment;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
+
 }

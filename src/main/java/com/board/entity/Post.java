@@ -54,4 +54,5 @@ public class Post extends AuditingFields {
     public static Post of(String title, String content, Category category, User user) {
     	return new Post(title, content, category, user);
     }
+    
 }
