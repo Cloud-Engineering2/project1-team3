@@ -17,7 +17,7 @@ public class CommentController {
 
     public ResponseEntity<String> registerComment(
             @RequestParam Long postId,
-            @RequestParam String userId,
+            @RequestParam Long userId,
             @RequestBody String content) {
         commentService.registerComment(postId, userId, content);
         return ResponseEntity.ok("Comment created successfully");
