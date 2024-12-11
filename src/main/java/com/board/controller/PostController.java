@@ -9,6 +9,7 @@ import com.board.dto.request.PostRequest;
 import com.board.dto.response.PostResponse;
 import com.board.service.PostService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -24,7 +25,7 @@ public class PostController {
 	}
 	
 	@PostMapping()
-	public ResponseEntity<PostResponse> createPost(@RequestBody PostRequest request) {
+	public ResponseEntity<PostResponse> createPost(@Valid @RequestBody PostRequest request) {
 		PostResponse post = postService.createPost(request);
 		return ResponseEntity.status(HttpStatus.CREATED).body(post);
 	}
