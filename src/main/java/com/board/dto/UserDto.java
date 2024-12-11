@@ -14,7 +14,7 @@ import lombok.ToString;
 @Getter
 @Setter
 public class UserDto {
-    private String uid;
+    private Long uid;
     private String id;
     private String pw;
 	private String username;

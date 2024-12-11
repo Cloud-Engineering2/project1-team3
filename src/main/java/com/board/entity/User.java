@@ -6,17 +6,20 @@ import com.board.constant.UserRoleType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.ToString;
 
 @Getter
-@ToString
+@ToString(callSuper = true)
 @Entity
 public class User extends AuditingFields {
 	@Id
 	@Column(length = 20, nullable=false)
-    private String uid;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long uid;
 	
 	@Column(length = 20, nullable=false)
     private String id;
@@ -36,7 +39,7 @@ public class User extends AuditingFields {
 	
     protected User() {}
     
-	private User(String uid, String id, String username, String pw, String uintro, UserRoleType userRoleType) {
+	private User(Long uid, String id, String username, String pw, String uintro, UserRoleType userRoleType) {
 		this.uid = uid;
 		this.id = id;
 		this.username = username;
