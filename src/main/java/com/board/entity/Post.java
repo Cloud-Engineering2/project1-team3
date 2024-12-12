@@ -59,4 +59,10 @@ public class Post extends AuditingFields {
     	return new Post(title, content, summary, category, user);
     }
     
+    public void updatePost(String title, String content, String summary, Category category) {
+    	this.title = title;
+    	this.content = content;
+    	this.summary = summary;
+    	this.category = category;
+    }
 }

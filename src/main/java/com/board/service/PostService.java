@@ -9,8 +9,10 @@ import com.board.constant.Category;
 import com.board.dto.request.PostRequest;
 import com.board.dto.response.PostResponse;
 import com.board.entity.Post;
+import com.board.exception.PostNotFoundException;
 import com.board.repository.PostRepository;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -59,7 +61,7 @@ public class PostService {
 		
 		return PostResponse.convertToDto(post);
 	}
-
+  
 	@Transactional
 	public void deletePost(Long pid) {
 		Post post = postRepository.findById(pid).orElseThrow(() -> new PostNotFoundException(pid));
