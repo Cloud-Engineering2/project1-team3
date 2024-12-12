@@ -62,6 +62,10 @@ public class PrincipalDetails implements UserDetails {
     	return UserDto.of(uid, id, pw, username, uintro, userRoleType);
     }
 	
+    /*
+     * getAuthorities 메서드에서는 사용자의 역할(Role) 또는 권한(Permission)을 반환
+     * 사용자가 User인지 Admin인지를 반환한다.
+     * */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		
