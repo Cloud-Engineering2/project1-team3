@@ -35,4 +35,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handlePostNotFoundException(PostNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
+    
+    @ExceptionHandler(UnauthorizeException.class)
+    public ResponseEntity<String> handleUnauthorizeException(UnauthorizeException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+    }
+    
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleGeneralException(RuntimeException ex) {
+    	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+    }
 }
