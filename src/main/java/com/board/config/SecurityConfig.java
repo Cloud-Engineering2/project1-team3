@@ -23,7 +23,7 @@ public class SecurityConfig {
 	        	// 로그인 여부와 상관없이 정적 파일에 접근 가능
 	            .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
 	                .permitAll()
-	            .requestMatchers("/", "/loginPage", "/signUpPage")
+	            .requestMatchers("/", "/loginPage", "/login", "/signUpPage", "/signUp")
 	                .permitAll()
 	            // 로그인과 로그아웃을 제외한 모든 요청에 대해 인증을 요구하는 설정
 	            // 모든 Request에 대하여 로그인하지 않은 사용자는 접근할 수 없도록 설정
