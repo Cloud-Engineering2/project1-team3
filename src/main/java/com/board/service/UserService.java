@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.board.constant.UserRoleType;
 import com.board.dto.UserDto;
 import com.board.entity.User;
 import com.board.repository.UserRepository;
@@ -34,7 +33,6 @@ public class UserService {
 	}
 	
 	public Optional<UserDto> selectUserById(String id) {
-	    // Optional의 값이 있을 때만 변환하여 반환
 	    return userRepository.findById(id)
 	            .map(UserDto::from);  // User가 있을 경우 UserDto로 변환
 	}

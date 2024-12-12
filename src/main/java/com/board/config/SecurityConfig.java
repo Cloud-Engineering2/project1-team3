@@ -43,6 +43,7 @@ public class SecurityConfig {
 	}
 	
 	// 인증된 데이터를 가져오는 로직 (id, password 비교)
+	// 위의 LoginForm에서 로그인의 성공 여부는 이 userDetailsService에서 유저 객체가 반환되는가에 따라 결정
 	@Bean
 	public UserDetailsService userDetailsService(UserService userService) {
 		return id -> userService.selectUserById(id)

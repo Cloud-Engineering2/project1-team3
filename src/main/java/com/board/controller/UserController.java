@@ -41,13 +41,14 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public void login (@ModelAttribute UserRequest user) {
-    	//정보 확인 후 posts 페이지로 보내기
+    	// 정보 확인 후 posts 페이지로 보내기
+		// security에서 처리해줌
 	}
 	
 	@GetMapping("/logout")
-	public String logout () {
-    	//로그 아웃 후 로그인 페이지로 보내기
-        return "login";
+	public void logout () {
+    	// 로그 아웃 후 로그인 페이지로 보내기
+		// security에서 처리해줌
 	} 
 	
 	@GetMapping("/userInfoPage")

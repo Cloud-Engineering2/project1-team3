@@ -17,9 +17,7 @@ import com.board.dto.security.PrincipalDetails;
 public class JpaConfig {
 	@Bean
 	AuditorAware<String> auditorAware() {
-
-		// 로그인한 사람들이 생성 및 변경 할 수 있도록 한다.
-		// SecurityContextHolder에 SecuritySession이 저장 된다.
+		
 		return ()->Optional.ofNullable(SecurityContextHolder.getContext())
 							.map(SecurityContext::getAuthentication)
 							.filter(Authentication::isAuthenticated)
@@ -35,3 +33,11 @@ public class JpaConfig {
 							});
 	}
 }
+
+/*
+ * 1. Spring Security에서는 사용자의 인증 정보를 SecurityContextHolder에 저장
+ * 2. SecurityContext에서 인증 객체(Authentication)를 가져온다. Authentication은 현재 인증된 사용자의 정보를 포함
+ * 3. 인증된 사용자인지 확인
+ * 4. 인증 객체에서 Principal 정보를 획득
+ * 5. Principal이 PrincipalDetails 객체인 경우, 사용자 ID(getUid())를 반환
+ * */
