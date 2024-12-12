@@ -1,6 +1,9 @@
 package com.board.dto;
 
 import com.board.entity.Comment;
+
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 
 public class CommentDto {
@@ -18,6 +21,7 @@ public class CommentDto {
     }
 
     // 응답용 DTO (필요한 경우 사용)
+    @Getter
     public static class CommentResponse {
         private Long id;
         private String content;
