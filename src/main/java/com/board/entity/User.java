@@ -2,6 +2,7 @@ package com.board.entity;
 
 import com.board.common.utils.UserRoleTypeAttributeConverter;
 import com.board.constant.UserRoleType;
+import com.board.dto.UserDto;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
@@ -47,5 +48,22 @@ public class User extends AuditingFields {
 		this.uintro = uintro;
 		this.userRoleType = userRoleType;
 	}
+	
+	public static User of(Long uid, String id, String pw, String username, String uintro, UserRoleType userRoleType) {
+		return new User(uid, id, pw, username, uintro, userRoleType);
+	}
+	
+	public static User of(String id, String pw, String username, String uintro, UserRoleType userRoleType) {
+		return User.of(null, id, pw, username, uintro, userRoleType);
+	}
+	
+    public UserDto toDto(UserRoleType userRole) {
+    	return UserDto.of(uid, 
+    					  id,
+    					  pw,
+    					  username, 
+    					  uintro,  
+    					  userRole);
+    }
 	
 }

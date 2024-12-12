@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+</head>
+<style>
+    body {
+        height: 100vh;
+        padding: 0;
+        margin: 0;
+        display: flex; 
+        flex-direction: column;
+        justify-content: center; 
+        align-items: center;
+    }
+    p {
+        padding: 0;
+        margin: 0;
+    }
+
+    .w_per_50 {
+        width: 50%;
+    }
+    .h_per_100 {
+        height: 100%; 
+    }
+    .mt_10 {
+        margin-top: 10px;
+    }
+    .mb_5 {
+        margin-bottom: 5px;
+    }
+    .mr_5 {
+        margin-right: 5px;
+    }
+
+    table {
+        width : 250px;
+        height: 150px;
+        border : 1px solid #e8e8e8;
+        border-spacing : initial;
+        border-radius: 3px;
+        margin-bottom: 10px;
+    }
+    table td {
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+    table tr:not(:last-child) td {
+        border-bottom: 1px solid #e8e8e8;
+    }
+    input {
+        width : 96%;
+        height: 30px;
+        border : none;
+        outline: none;
+    }
+    button {
+        width : 250px;
+        height: 30px;
+        font-size: 11px;
+        border : none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: rgb(69, 131, 237);
+        color : white;
+    }
+</style>
+<body>
+    <h2>SIGN UP</h2>
+	<form action="/signUp" method="post">
+	    <table>
+	        <tr>
+	            <td>
+	                <input id="id" name="id" type="text" placeholder="아이디" required>
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>
+	                <input id="pw" name="pw" type="password" placeholder="비밀번호" required>
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>
+	                <input id="username" name="username" type="text" placeholder="유저 이름" required>
+	            </td>
+	        </tr>
+	        <tr>
+	            <td>
+	                <input id="uintro" name="uintro" type="text" placeholder="자기소개">
+	            </td>
+	        </tr>
+	    </table>
+	    <button type="submit">SignUp</button>
+	</form>
+</body>
+</html>

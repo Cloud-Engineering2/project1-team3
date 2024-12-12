@@ -2,9 +2,11 @@ package com.board.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.board.dto.UserDto;
+import com.board.constant.UserRoleType;
+import com.board.dto.request.UserRequest;
 import com.board.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -15,33 +17,48 @@ public class UserController {
 	
 	private final UserService userService;
 	
-	@GetMapping("/")
-	public String mainPage() {
-		return "userInfo";
-	} 
+    @GetMapping("/")
+    public String mainPage() {
+		return "login";
+    } 
 	
-	@GetMapping("/sign-up")
-	public String signupPage() {
-		return "sign-up Page";
+	@GetMapping("/signUpPage")
+	public String signUpPage() {
+        return "signUp";
 	} 
 
-	@PostMapping("/sign-up")
-	public String signup( UserDto userRequest ) {
-		return "sign-up";
+	@PostMapping("/signUp")
+	public String signUp (@ModelAttribute UserRequest user) {
+		
+		userService.insertUser(user.toDto(UserRoleType.USER));
+        return "login";
 	} 
 	
-	@GetMapping("/login")
+    @GetMapping("/loginPage")
 	public String loginPage () {
-		return "login Page";
-	} 
+        return "login";
+	}
 	
 	@PostMapping("/login")
-	public String login () {
-		return "login";
-	} 
+	public void login (@ModelAttribute UserRequest user) {
+    	//정보 확인 후 posts 페이지로 보내기
+	}
 	
 	@GetMapping("/logout")
 	public String logout () {
-		return "logout";
+    	//로그 아웃 후 로그인 페이지로 보내기
+        return "login";
+	} 
+	
+	@GetMapping("/userInfoPage")
+	public String userInfoPage () {
+    	//로그 아웃 후 로그인 페이지로 보내기
+        return "/userInfo";
+	} 
+	
+	@GetMapping("/errorPage")
+	public String errorPage () {
+    	//로그 아웃 후 로그인 페이지로 보내기
+        return "errorPage";
 	} 
 }
