@@ -30,8 +30,10 @@ public class Post extends AuditingFields {
 	
 	private String title;
 	
+	@Column(name = "content", length = 10000)
 	private String content;
 	
+	@Column(name = "summary", length = 1000)
 	private String summary;
 	
 	@Enumerated(EnumType.STRING)
