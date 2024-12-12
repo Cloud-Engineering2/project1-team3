@@ -41,4 +41,10 @@ public class PostController {
 		PostResponse post = postService.updatePost(pid, request);
 		return ResponseEntity.status(HttpStatus.OK).body(post);
 	}
+
+	@DeleteMapping("/{pid}")
+	public ResponseEntity<String> deletePost(@PathVariable Long pid) {
+		postService.deletePost(pid);
+		return ResponseEntity.ok("Successfully Deleted: Post ID - " + pid);
+	}
 }
