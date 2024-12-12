@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.board.common.SuccessResponse;
 import com.board.common.base.BaseResponse;
+import com.board.constant.Category;
 import com.board.dto.request.PostRequest;
 import com.board.dto.response.PostResponse;
 import com.board.dto.response.PostsResponse;
@@ -27,7 +29,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/api/posts")
 @RequiredArgsConstructor
 public class PostController {
 	private final PostService postService;
@@ -46,6 +48,15 @@ public class PostController {
 		PostResponse post = postService.getPost(pid);
 		return new ResponseEntity<>(
 				new SuccessResponse<>(HttpStatus.OK.value(), "게시글이 조회되었습니다.", post),
+				HttpStatus.OK
+		);
+	}
+	
+	@GetMapping("/category")
+	public ResponseEntity<SuccessResponse<List<PostsResponse>>> getPostsByCategory(@RequestParam Category category) {
+		List<PostsResponse> posts = postService.getPostsByCategory(category);
+		return new ResponseEntity<>(
+				new SuccessResponse<>(HttpStatus.OK.value(), "카테고리별 게시글 리스트가 조회되었습니다.", posts),
 				HttpStatus.OK
 		);
 	}

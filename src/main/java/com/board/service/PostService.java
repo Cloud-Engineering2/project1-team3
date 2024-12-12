@@ -2,7 +2,6 @@ package com.board.service;
 
 import java.util.List;
 
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +16,6 @@ import com.board.exception.UnauthorizeException;
 import com.board.repository.PostRepository;
 import com.board.repository.UserRepository;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -91,5 +89,13 @@ public class PostService {
 	public PostResponse getPost(Long pid) {
 		Post post = postRepository.findById(pid).orElseThrow(() -> new PostNotFoundException(pid));
 		return PostResponse.convertToDto(post);
+	}
+
+	@Transactional(readOnly = true)
+	public List<PostsResponse> getPostsByCategory(Category category) {
+		List<Post> posts = postRepository.findByCategory(category);
+		return posts.stream()
+				.map(PostsResponse::convertToDto)
+				.toList();
 	}
 }
