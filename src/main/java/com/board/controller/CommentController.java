@@ -26,12 +26,12 @@ public class CommentController {
     // 댓글 작성
     @PostMapping
 
-    public ResponseEntity<String> registerComment(
+    public ResponseEntity<CommentDto.CommentResponse> registerComment(
             @RequestParam Long postId,
             @RequestParam Long userId,
             @RequestBody CommentDto.CommentRequest content) {
-        commentService.registerComment(postId, userId, content);
-        return ResponseEntity.ok("Comment created successfully");
+        Comment svaedComment = commentService.registerComment(postId, userId, content);
+        return ResponseEntity.ok(CommentDto.CommentResponse.from(svaedComment));
     }
 
     // 댓글 삭제
@@ -47,11 +47,11 @@ public class CommentController {
     // 댓글 수정
     @PutMapping("/{commentId}")
 
-    public ResponseEntity<String> updateComment(
+    public ResponseEntity<CommentDto.CommentResponse> updateComment(
             @PathVariable Long commentId,
             @RequestParam Long userId,
             @RequestBody CommentDto.CommentRequest newContent) {
-        commentService.updateComment(commentId, userId, newContent);
-        return ResponseEntity.ok("Comment updated successfully");
+        Comment updatedComment = commentService.updateComment(commentId, userId, newContent);
+        return ResponseEntity.ok(CommentDto.CommentResponse.from(updatedComment));
     }
 }
