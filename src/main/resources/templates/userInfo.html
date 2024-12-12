@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>UserInfo</title>
     <style>
         body {
             padding: 0;
@@ -17,20 +17,39 @@
         .userImg {
             width: 100px; 
             height: 100px; 
-            background-color: #e8e8e8; 
+            background-color: thistle; 
             margin-bottom: 10px;
+            border-radius: 50%;
         }
         .info p {
             font-size: 10px;
             margin : 3px 0px;
         }
+        .logout{
+            height: 25px;
+            border: none;
+            border-radius: 3px;
+            background-color: #e8e8e8;
+            font-size: 9px;
+            cursor: pointer;
+        }
+        .logout:hover {
+            background-color: rgb(69, 131, 237);
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div style="margin: 0 30px;">
-        <h3>
-            HANI TECH
-        </h3>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h3>HANI TECH</h3>
+            <form action="/logout" method="get">
+                <button class="logout" type="submit">Logout</button>
+            </form>
+            <form action="/posts" method="get">
+                <button class="logout" type="submit">Posts</button>
+            </form>
+        </div>
         <div>
             <div class="userImg"></div>
             <div style="display: flex; justify-content: space-between;">
