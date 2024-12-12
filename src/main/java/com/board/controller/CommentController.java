@@ -1,9 +1,20 @@
 package com.board.controller;
 
-import com.board.service.CommentService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.board.dto.CommentDto;
+import com.board.entity.Comment;
+import com.board.service.CommentService;
+
+import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
@@ -15,12 +26,12 @@ public class CommentController {
     // 댓글 작성
     @PostMapping
 
-    public ResponseEntity<String> registerComment(
+    public ResponseEntity<CommentDto.CommentResponse> registerComment(
             @RequestParam Long postId,
             @RequestParam Long userId,
-            @RequestBody String content) {
-        commentService.registerComment(postId, userId, content);
-        return ResponseEntity.ok("Comment created successfully");
+            @RequestBody CommentDto.CommentRequest content) {
+        Comment svaedComment = commentService.registerComment(postId, userId, content);
+        return ResponseEntity.ok(CommentDto.CommentResponse.from(svaedComment));
     }
 
     // 댓글 삭제
@@ -36,11 +47,11 @@ public class CommentController {
     // 댓글 수정
     @PutMapping("/{commentId}")
 
-    public ResponseEntity<String> updateComment(
+    public ResponseEntity<CommentDto.CommentResponse> updateComment(
             @PathVariable Long commentId,
             @RequestParam Long userId,
-            @RequestBody String newContent) {
-        commentService.updateComment(commentId, userId, newContent);
-        return ResponseEntity.ok("Comment updated successfully");
+            @RequestBody CommentDto.CommentRequest newContent) {
+        Comment updatedComment = commentService.updateComment(commentId, userId, newContent);
+        return ResponseEntity.ok(CommentDto.CommentResponse.from(updatedComment));
     }
 }
