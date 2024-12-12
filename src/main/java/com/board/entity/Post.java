@@ -8,6 +8,8 @@ import com.board.constant.Category;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,6 +34,7 @@ public class Post extends AuditingFields {
 	
 	private String summary;
 	
+	@Enumerated(EnumType.STRING)
 	private Category category;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
@@ -44,14 +47,22 @@ public class Post extends AuditingFields {
     
 	protected Post() {}
 	
-    private Post(String title, String content, Category category, User user) {
+    private Post(String title, String content, String summary, Category category, User user) {
     	this.title = title;
     	this.content = content;
+    	this.summary = summary;
     	this.category = category;
     	this.user = user;
     }
     
-    public static Post of(String title, String content, Category category, User user) {
-    	return new Post(title, content, category, user);
+    public static Post of(String title, String content, String summary, Category category, User user) {
+    	return new Post(title, content, summary, category, user);
+    }
+    
+    public void updatePost(String title, String content, String summary, Category category) {
+    	this.title = title;
+    	this.content = content;
+    	this.summary = summary;
+    	this.category = category;
     }
 }

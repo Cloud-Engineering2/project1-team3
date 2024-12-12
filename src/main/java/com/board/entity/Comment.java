@@ -40,4 +40,11 @@ public class Comment extends AuditingFields{
 	public static Comment of(String content, Post post, User user) {
 		return new Comment(content, post, user);
 	}
+
+	public void setContent(String newContent) {
+        if (newContent == null || newContent.trim().isEmpty()) {
+            throw new IllegalArgumentException("Comment content cannot be null or empty");
+        }
+        this.content = newContent;
+    }
 }
