@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.board.constant.Category;
 import com.board.dto.request.PostRequest;
 import com.board.dto.response.PostResponse;
+import com.board.dto.response.PostsResponse;
 import com.board.entity.Post;
 import com.board.exception.PostNotFoundException;
 import com.board.repository.PostRepository;
@@ -21,10 +22,10 @@ public class PostService {
 	private final PostRepository postRepository;
 	
 	@Transactional(readOnly = true)
-	public List<PostResponse> getPosts() {
+	public List<PostsResponse> getPosts() {
 		List<Post> posts = postRepository.findAll();
 		return posts.stream()
-				.map(PostResponse::convertToDto)
+				.map(PostsResponse::convertToDto)
 				.toList();
 	}
 
@@ -67,5 +68,11 @@ public class PostService {
 		Post post = postRepository.findById(pid).orElseThrow(() -> new PostNotFoundException(pid));
 		
 		postRepository.delete(post);
+	}
+
+	@Transactional(readOnly = true)
+	public PostResponse getPost(Long pid) {
+		Post post = postRepository.findById(pid).orElseThrow(() -> new PostNotFoundException(pid));
+		return PostResponse.convertToDto(post);
 	}
 }

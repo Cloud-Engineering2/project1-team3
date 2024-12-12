@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.board.dto.request.PostRequest;
 import com.board.dto.response.PostResponse;
+import com.board.dto.response.PostsResponse;
 import com.board.service.PostService;
 
 import jakarta.validation.Valid;
@@ -19,9 +20,15 @@ public class PostController {
 	private final PostService postService;
 	
 	@GetMapping()
-	public ResponseEntity<List<PostResponse>> getPosts() {
-		List<PostResponse> posts = postService.getPosts();
+	public ResponseEntity<List<PostsResponse>> getPosts() {
+		List<PostsResponse> posts = postService.getPosts();
 		return ResponseEntity.ok(posts);
+	}
+	
+	@GetMapping("/{pid}")
+	public ResponseEntity<PostResponse> getPost(@PathVariable Long pid) {
+		PostResponse post = postService.getPost(pid);
+		return ResponseEntity.ok(post);
 	}
 	
 	@PostMapping()
