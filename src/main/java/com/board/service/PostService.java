@@ -68,4 +68,10 @@ public class PostService {
 		
 		postRepository.delete(post);
 	}
+
+	@Transactional(readOnly = true)
+	public PostResponse getPost(Long pid) {
+		Post post = postRepository.findById(pid).orElseThrow(() -> new PostNotFoundException(pid));
+		return PostResponse.convertToDto(post);
+	}
 }

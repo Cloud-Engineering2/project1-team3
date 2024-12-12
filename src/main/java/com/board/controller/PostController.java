@@ -24,6 +24,12 @@ public class PostController {
 		return ResponseEntity.ok(posts);
 	}
 	
+	@GetMapping("/{pid}")
+	public ResponseEntity<PostResponse> getPost(@PathVariable Long pid) {
+		PostResponse post = postService.getPost(pid);
+		return ResponseEntity.ok(post);
+	}
+	
 	@PostMapping()
 	public ResponseEntity<PostResponse> createPost(@Valid @RequestBody PostRequest request) {
 		PostResponse post = postService.createPost(request);
