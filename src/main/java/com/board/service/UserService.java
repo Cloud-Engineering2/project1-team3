@@ -2,9 +2,12 @@ package com.board.service;
 
 import java.util.Optional;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.board.dto.UserDto;
+import com.board.dto.security.PrincipalDetails;
 import com.board.entity.User;
 import com.board.repository.UserRepository;
 
@@ -41,6 +44,19 @@ public class UserService {
 	public void updateUser (UserDto userDto) {
 		User user = userDto.toEntity();
 		userRepository.save(user);
+	}
+	
+	public User GetUserBySession() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
+        Object principal = authentication.getPrincipal();
+        
+        Long currentUid = null;
+        if (principal instanceof PrincipalDetails) {
+            currentUid = ((PrincipalDetails) principal).getUid();
+        }
+        
+        return userRepository.findById(currentUid).get();
 	}
 	
 }
