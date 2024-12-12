@@ -40,21 +40,17 @@ public class User extends AuditingFields {
 	
     protected User() {}
     
-	private User(Long uid, String id, String username, String pw, String uintro, UserRoleType userRoleType) {
+	private User(Long uid, String id, String pw, String username, String uintro, UserRoleType userRoleType) {
 		this.uid = uid;
 		this.id = id;
-		this.username = username;
 		this.pw = pw;
+		this.username = username;
 		this.uintro = uintro;
 		this.userRoleType = userRoleType;
 	}
 	
 	public static User of(Long uid, String id, String pw, String username, String uintro, UserRoleType userRoleType) {
 		return new User(uid, id, pw, username, uintro, userRoleType);
-	}
-	
-	public static User of(String id, String pw, String username, String uintro, UserRoleType userRoleType) {
-		return User.of(null, id, pw, username, uintro, userRoleType);
 	}
 	
     public UserDto toDto(UserRoleType userRole) {
