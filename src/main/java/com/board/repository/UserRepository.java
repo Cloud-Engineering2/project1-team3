@@ -9,5 +9,6 @@ import com.board.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
+	// findByUserId
 	Optional<User> findById(String id);
 }

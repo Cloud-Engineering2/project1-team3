@@ -20,7 +20,13 @@ public class UserService {
 		Optional<UserDto> dto = selectUserById(userDto.getId());
 		// 있는지 여부 확인하기
 		if(!dto.isPresent()) {
+			
+			System.out.println(userDto);
+			
 			User user = userDto.toEntity();
+			
+			System.out.println(user);
+			
 			userRepository.save(user);
 		}
 	}
