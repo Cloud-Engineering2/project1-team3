@@ -41,7 +41,7 @@ public class PostsResponse {
             post.getCategory(),
             post.getCreatedAt(),
             post.getUpdatedAt(),
-            post.getCreatedBy(),
+            post.getUser().getUsername(),
             post.getPostComments().size()
 		);
 	}
