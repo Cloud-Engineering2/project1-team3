@@ -1,53 +1,48 @@
 package com.board.dto.response;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 import com.board.constant.Category;
 import com.board.entity.Post;
 
 import lombok.Getter;
 import lombok.ToString;
 
+/*
+ * Post 전체 조회에 대한 Response로
+ * Comment를 포함하지 않고 Comment의 개수를 포함한다.
+ */
 @Getter
 @ToString
-public class PostResponse {
+public class PostsResponse {
 	private Long id;
 	private String title;
-	private String content;
-	private String summary;
 	private Category category;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
 	private String createdBy;
-	private List<CommentResponse> comments;
+	private int commentCount;
 	
-	public PostResponse(Long id, String title, String content, String summary, Category category,
-			LocalDateTime createdAt, LocalDateTime updatedAt, String createdBy, List<CommentResponse> comments) {
+	public PostsResponse(Long id, String title, Category category,LocalDateTime createdAt,
+			LocalDateTime updatedAt, String createdBy, int commentCount) {
         this.id = id;
         this.title = title;
-        this.content = content;
-        this.summary = summary;
         this.category = category;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.createdBy = createdBy;
-        this.comments = comments;
+        this.commentCount = commentCount;
 	}
 	
-	public static PostResponse convertToDto(Post post) {
-		List<CommentResponse> commentResponses = post.getPostComments().stream()
-				.map(CommentResponse::convertToDto)
-				.toList();
-		return new PostResponse(
+	public static PostsResponse convertToDto(Post post) {
+		return new PostsResponse(
 			post.getId(),
             post.getTitle(),
-            post.getContent(),
-            post.getSummary(),
             post.getCategory(),
             post.getCreatedAt(),
             post.getUpdatedAt(),
             post.getCreatedBy(),
-            commentResponses
+            post.getPostComments().size()
 		);
 	}
 }
