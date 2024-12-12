@@ -29,4 +29,22 @@ public class PostController {
 		PostResponse post = postService.createPost(request);
 		return ResponseEntity.status(HttpStatus.CREATED).body(post);
 	}
+	
+	@PutMapping("/{pid}")
+	public ResponseEntity<PostResponse> updatePost(
+			@PathVariable Long pid,
+			@Valid @RequestBody PostRequest request
+	) {
+//		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//	    Long currentUid = authentication.getUid();
+	    
+		PostResponse post = postService.updatePost(pid, request);
+		return ResponseEntity.status(HttpStatus.OK).body(post);
+	}
+	
+	@DeleteMapping("/{pid}")
+	public ResponseEntity<String> deletePost(@PathVariable Long pid) {
+		postService.deletePost(pid);
+		return ResponseEntity.ok("Successfully Deleted: Post ID - " + pid);
+	}
 }
