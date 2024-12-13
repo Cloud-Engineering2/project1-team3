@@ -9,10 +9,17 @@
         .author {
             font-size: 1.25em;
             font-weight: bold;
+            margin-bottom: 0.2em;
         }
         .created-at {
             color: #6c757d;
             font-size: 0.9em;
+            margin-bottom: 0.2em;
+        }
+        .category {
+            color: black;
+            font-weight: bold;
+            margin-bottom: 0.5em;
         }
         .summary {
             font-size: 1.1em;
@@ -21,7 +28,7 @@
             margin-bottom: 20px; 
         }
         .summary-prefix {
-            color: black; /* "요약" 글자 색상 설정 */
+            color: black;
         }
     </style>
 </head>
@@ -34,6 +41,7 @@
         <header class="text-center mb-4">
             <h1 id="postTitle">게시글 제목</h1>
             <div class="text-start">
+                <p class="category" id="postCategory">카테고리</p>
                 <p class="author" id="postAuthor">작성자</p>
                 <time class="created-at" id="postCreatedAt">작성일</time>
             </div>
@@ -89,7 +97,8 @@
                     if (data.status == 200) {
                         const post = data.data;
                         document.getElementById('postTitle').innerText = post.title;
-                        document.getElementById('postAuthor').innerText = post.createdBy;
+                        document.getElementById('postCategory').innerText = post.category; // 카테고리 설정
+                        document.getElementById('postAuthor').innerText = post.createdBy; // 작성자 설정
                         document.getElementById('postCreatedAt').innerText = new Date(post.createdAt).toLocaleString(); // 날짜 포맷 처리
                         document.getElementById('postContent').innerText = post.content;
 

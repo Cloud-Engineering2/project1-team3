@@ -35,19 +35,20 @@
             margin: 0 0 10px;
             color: #007bff;
         }
-        .post-details {
+        .post-meta {
             display: flex;
-            justify-content: space-between; /* 양쪽 정렬 */
-            font-size: 0.9em; /* 폰트 크기 조정 */
-            color: #6c757d; /* 색상 조정 */
+            flex-direction: column;
+            align-items: flex-end;
+            font-size: 0.9em; 
+            color: #6c757d;
         }
         .btn {
-            margin-top: -30px; /* 버튼을 위로 올리기 위해 음수 마진 사용 */
+            margin-top: -30px;
         }
         .btn-primary {
             background-color: #007bff;
             border: none;
-            padding: 5px 10px; /* 버튼 크기 축소 */
+            padding: 5px 10px;
         }
     </style>
 </head>
@@ -58,7 +59,7 @@
 
     <div class="d-flex justify-content-between align-items-center">
         <h2>게시글 목록</h2>
-        <a href="/posts/form" class="btn btn-primary btn-sm">게시글 작성</a> <!-- 버튼 크기를 작게 설정 -->
+        <a href="/posts/form" class="btn btn-primary btn-sm">게시글 작성</a>
     </div>
     
     <div id="postList"></div>
@@ -77,9 +78,12 @@ $(document).ready(function() {
                 $("#postList").append(`
                     <div class="post" data-id="${post.id}">
                         <h3><a href="/posts/${post.id}">${post.title}</a></h3> <!-- 제목 클릭 시 상세 페이지로 이동 -->
-                        <div class="post-details">
-                            <span>${createdAt}</span>
-                            <span>작성자: ${post.createdBy} | 댓글 수: ${post.commentCount}</span>
+                        <div class="post-date">
+                            <span>${createdAt}</span> <!-- 생성 시간 왼쪽에 위치 -->
+                        </div>
+                        <div class="post-meta">
+                            <span>카테고리: ${post.category}</span> <!-- 카테고리 위에 위치 -->
+                            <span>작성자: ${post.createdBy} | 댓글 수: ${post.commentCount}</span> <!-- 작성자 및 댓글 수 아래에 위치 -->
                         </div>
                     </div>
                 `);
