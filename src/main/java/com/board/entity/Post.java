@@ -1,10 +1,9 @@
 package com.board.entity;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import com.board.constant.Category;
 
+import java.util.List;
+import java.util.ArrayList;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -30,8 +30,10 @@ public class Post extends AuditingFields {
 	
 	private String title;
 	
+	@Column(name = "content", length = 10000)
 	private String content;
 	
+	@Column(name = "summary", length = 1000)
 	private String summary;
 	
 	@Enumerated(EnumType.STRING)
@@ -43,7 +45,8 @@ public class Post extends AuditingFields {
 
     @ToString.Exclude
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private final Set<Comment> postComments = new LinkedHashSet<>();
+    @OrderBy("createdAt ASC")
+    private final List<Comment> postComments = new ArrayList<>();
     
 	protected Post() {}
 	

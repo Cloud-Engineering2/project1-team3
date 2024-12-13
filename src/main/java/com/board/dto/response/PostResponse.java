@@ -46,7 +46,7 @@ public class PostResponse {
             post.getCategory(),
             post.getCreatedAt(),
             post.getUpdatedAt(),
-            post.getCreatedBy(),
+            post.getUser().getUsername(),
             commentResponses
 		);
 	}

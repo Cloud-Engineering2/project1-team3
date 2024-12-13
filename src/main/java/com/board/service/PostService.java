@@ -2,7 +2,7 @@ package com.board.service;
 
 import java.util.List;
 
-import org.springframework.security.access.AccessDeniedException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,12 +17,15 @@ import com.board.exception.UnauthorizeException;
 import com.board.repository.PostRepository;
 import com.board.repository.UserRepository;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
 public class PostService {
+	
+	@Autowired
+	private AzureSummarization azureSummarization;
+	
 	private final PostRepository postRepository;
 	private final UserRepository userRepository;
 	
@@ -38,12 +41,15 @@ public class PostService {
 	public PostResponse createPost(PostRequest request, Long uid) {
 		User user = userRepository.findById(uid).get();
 		
-		// 요약은 임시로 content 내용을 그대로 사용
-		Post post = Post.of(request.getTitle(), request.getContent(), request.getContent(), Category.valueOf(request.getCategory()), user);
+		String content = request.getContent();
+		String summary = determineSummary(content);
+		
+		Post post = Post.of(request.getTitle(), request.getContent(), summary, Category.valueOf(request.getCategory()), user);
 		postRepository.save(post);
 		return PostResponse.convertToDto(post);
 	}
 
+	@Transactional
 	public PostResponse updatePost(Long pid, PostRequest request, Long uid) {
 		User user = userRepository.findById(uid).get();
 		Post post = postRepository.findById(pid).orElseThrow(() -> new PostNotFoundException(pid));
@@ -51,24 +57,22 @@ public class PostService {
 		if (!user.getUid().equals(post.getUser().getUid())) {
 			throw new UnauthorizeException("Post에 대한 권한이 없습니다. Post ID - " + pid);
 		}
-		
-		// 요약 API 사용 횟수 감소 목적
-		// content의 변경 사항이 없으면 기존의 요약을 사용
-		if (post.getContent().equals(request.getContent())) {
-			post.updatePost(
-					request.getTitle(),
-					request.getContent(),
-					post.getSummary(),
-					Category.valueOf(request.getCategory())
-			);
-		} else {
-			post.updatePost(
-					request.getTitle(),
-					request.getContent(),
-					request.getContent(),	// 임시로 content 내용 그대로 사용
-					Category.valueOf(request.getCategory())
-			);
-		}
+
+		String content = request.getContent();
+		String summary;
+
+	    if (post.getContent().equals(content)) {
+	        summary = post.getSummary(); // 게시글 내용 미변경 시 기존 요약 사용
+	    } else {
+	        summary = determineSummary(content);
+	    }
+	    
+		post.updatePost(
+			request.getTitle(),
+			content,
+			summary,
+			Category.valueOf(request.getCategory())
+		);
 		
 		postRepository.save(post);
 		
@@ -91,5 +95,21 @@ public class PostService {
 	public PostResponse getPost(Long pid) {
 		Post post = postRepository.findById(pid).orElseThrow(() -> new PostNotFoundException(pid));
 		return PostResponse.convertToDto(post);
+	}
+
+	@Transactional(readOnly = true)
+	public List<PostsResponse> getPostsByCategory(Category category) {
+		List<Post> posts = postRepository.findByCategory(category);
+		return posts.stream()
+				.map(PostsResponse::convertToDto)
+				.toList();
+	}
+	
+	private String determineSummary(String content) {
+	    if (content.length() <= 250) {
+	        return content;
+	    } else {
+	        return azureSummarization.summarizeContent(content);
+	    }
 	}
 }
