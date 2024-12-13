@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UserInfo</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        p {
+            padding: 0;
+            margin: 0;
+        }
+        h3 {
+			margin : 0;
+		}
+
+		.userRootBox {
+			margin : 30px;
+			padding : 10px 20px;
+			border : 1px solid #e8e8e8;
+			border-radius: 3px;
+		}
+		.userTitleBox {
+			display: flex; 
+			justify-content: space-between; 
+			align-items: center;
+			margin-bottom: 10px;
+		}
+		.userInfoBox {
+			display: flex; 
+			align-items: center;
+			margin-bottom: 10px;
+		}
+		.userIntroBox {
+			width: 300px; 
+			word-wrap: break-word;
+			margin-bottom: 10px;	
+		}
+        .userImg {
+            width: 100px; 
+            height: 100px; 
+            background-color: thistle; 
+            margin: 0 20px 10px 0;
+            border-radius: 50%;
+        }
+        .info p {
+            font-size: 10px;
+            margin : 3px 0px;
+        }
+        .btnPostPage{
+            height: 25px;
+            border: none;
+            border-radius: 3px;
+            background-color: #e8e8e8;
+            font-size: 9px;
+            cursor: pointer;
+        }
+        .btnPostPage:hover {
+            background-color: rgb(69, 131, 237);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="userRootBox">
+        <div class="userTitleBox">
+            <h3>세모</h3>
+            <form action="/posts" method="get">
+                <button class="btnPostPage" type="submit">Post</button>
+            </form>
+        </div>
+        <div class="userInfoBox">
+            <div class="userImg">
+                <!--<img src="./DefaultUser.png" alt="User Image" class="userImg" />-->
+            </div>
+            <div>
+                <p>ID&nbsp;:&nbsp;<span th:text="${user.id}"></span></p>
+                <p>USER&nbsp;NAME&nbsp;:&nbsp;<span th:text="${user.username}"></span></p>
+                <p>ROLE&nbsp;:&nbsp;<span th:text="${user.userRoleType.roleType}"></span></p>
+            </div>
+        </div>
+        <div class="userIntroBox">
+            <span th:text="${user.uintro}"></span>
+        </div>
+    </div>
+</body>
+</html>

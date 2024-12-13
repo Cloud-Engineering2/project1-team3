@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<style>
+    body {
+        height: 100vh;
+        padding: 0;
+        margin: 0;
+        display: flex; 
+        justify-content: center; 
+        align-items: center;
+    }
+    p {
+        padding: 0;
+        margin: 0;
+    }
+
+    .mb_10 {
+        margin-bottom: 10px;
+    }
+    .mb_15 {
+        margin-bottom: 15px;
+    }
+    .mb_30 {
+        margin-bottom: 30px;
+    }
+
+    .loginBox {
+        width: 250px; 
+        height: 300px; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border: 1px solid #e8e8e8;
+        border-radius: 3px;
+        text-align: center;
+    }
+    .loginInput {
+        width : 220px;
+        height: 30px;
+        background-color: #e8e8e8;
+        border: none;
+        border-radius: 2px;
+        outline : none;
+        padding: 0 5px;
+        box-sizing: border-box;
+    }
+    .loginButton {
+        width : 220px;
+        height: 30px;
+        background-color: black;
+        color: #fff;
+        border: none;
+        border-radius: 2px;
+        cursor: pointer;
+    }
+    .loginButton:hover {
+        background-color: rgb(69, 131, 237);
+    }
+    .signUp {
+        border: none;
+        background-color: white;
+        font-size: 9px;
+        cursor: pointer;
+    }
+    .signUp:hover {
+        color: rgb(69, 131, 237);
+    }
+</style>
+<body>
+    <div class="loginBox">
+        <h1 style="font-size: 20px;">Welcome</h1>
+        <form action="/login" method="post">
+            <div class="mb_30">
+                <p class="mb_15" style="font-size: 9px;">
+                    <span>이메일 주소를 이용하여 로그인 해 주세요.</span>
+                </p>
+                <p>
+                    <input type="text" id="id" class="loginInput mb_10" name="id" placeholder="아이디" required/>
+                </p>
+                <p>
+                    <input type="password" id="pw" class="loginInput mb_10" name="pw"placeholder="비밀번호" required/>
+                </p>
+                <button type="submit" id="login" class="loginButton">로그인</button>
+            </div>
+        </form>
+        <div>
+	        <form action="/signUpPage" method="get">
+	            <span style="font-size: 9px;">아직 계정이 없으신가요?</span>
+	            <button type="submit" class="signUp">회원가입</button>
+			</form>
+        </div>
+    </div>
+</body>
+</html>
