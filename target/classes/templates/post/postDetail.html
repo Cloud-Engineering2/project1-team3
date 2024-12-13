@@ -92,54 +92,54 @@
         const postId = /*[[${postId}]]*/ '';
 
         function loadPost() {
-            fetch('/api/posts/' + postId)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.status == 200) {
-                        const post = data.data;
-                        document.getElementById('postTitle').innerText = post.title;
-                        document.getElementById('postCategory').innerText = post.category;
-                        document.getElementById('postAuthor').innerText = post.createdBy;
-                        document.getElementById('postCreatedAt').innerText = new Date(post.createdAt).toLocaleString();
-                        document.getElementById('postContent').innerText = post.content;
+        fetch('/api/posts/' + postId)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status == 200) {
+                    const post = data.data;
+                    document.getElementById('postTitle').innerText = post.title;
+                    document.getElementById('postCategory').innerText = post.category;
+                    document.getElementById('postAuthor').innerText = post.createdBy;
+                    document.getElementById('postCreatedAt').innerText = new Date(post.createdAt).toLocaleString();
+                    document.getElementById('postContent').innerText = post.content;
 
-                        const summaryText = post.summary ? post.summary : "요약이 없습니다.";
-                        document.getElementById('summaryText').innerText = summaryText;
+                    const summaryText = post.summary ? post.summary : "요약이 없습니다.";
+                    document.getElementById('summaryText').innerText = summaryText;
 
-                        const commentList = document.getElementById('commentList').querySelector('ul');
-                        commentList.innerHTML = '';
-                        post.comments.forEach(comment => {
-                            const li = document.createElement('li');
-                            li.className = 'list-group-item';
-                            li.innerHTML = `
-                                <strong>${comment.createdBy}</strong>
-                                <span>${new Date(comment.createdAt).toLocaleString()}</span>
-                                <p>${comment.content}</p>
-                                <div class="comment-actions" id="actions-${comment.id}">
-                                    <button class="btn btn-danger btn-sm me-2" onclick="deleteComment(${comment.id})">삭제</button>
-                                    <button class="btn btn-warning btn-sm" onclick="editComment(${comment.id})">수정</button>
-                                </div>
-                            `;
-                            commentList.appendChild(li);
-
-                            const userName = /*[[${#authentication.name}]]*/ '';
-                            if (comment.createdBy === userName) {
-                                document.getElementById(`actions-${comment.id}`).style.display = 'inline'; // 자신의 댓글이면 버튼 표시
-                            }
-                        });
-
-                        if (post.createdBy === userName) {
-                            document.getElementById('deleteButton').style.display = 'block';
-                            document.getElementById('editButton').style.display = 'block';
-                            document.getElementById('editButton').setAttribute('href', '/posts/' + postId + '/form');
-                        }
+                    const userName = /*[[${#authentication.name}]]*/ '';
+                    if (post.createdBy === userName) {
+                        document.getElementById('deleteButton').style.display = 'block';
+                        document.getElementById('editButton').style.display = 'block';
+                        document.getElementById('editButton').setAttribute('href', '/posts/' + postId + '/form');
                     }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    // alert('게시글 정보를 불러오는 중 오류가 발생했습니다.');
-                });
-        }
+
+                    const commentList = document.getElementById('commentList').querySelector('ul');
+                    commentList.innerHTML = '';
+                    post.comments.forEach(comment => {
+                        const li = document.createElement('li');
+                        li.className = 'list-group-item';
+                        li.innerHTML = `
+                            <strong>${comment.createdBy}</strong>
+                            <span>${new Date(comment.createdAt).toLocaleString()}</span>
+                            <p>${comment.content}</p>
+                            <div class="comment-actions" id="actions-${comment.id}">
+                                <button class="btn btn-danger btn-sm me-2" onclick="deleteComment(${comment.id})">삭제</button>
+                                <button class="btn btn-warning btn-sm" onclick="editComment(${comment.id})">수정</button>
+                            </div>
+                        `;
+                        commentList.appendChild(li);
+
+                        if (comment.createdBy === userName) {
+                            document.getElementById(`actions-${comment.id}`).style.display = 'inline'; // 자신의 댓글이면 버튼 표시
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('게시글 정보를 불러오는 중 오류가 발생했습니다.');
+            });
+    }
 
         function registerComment() {
             const commentContent = document.getElementById('commentContent').value;
